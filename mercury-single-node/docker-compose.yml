@@ -1,0 +1,200 @@
+version: '2'
+
+networks:
+  mercury-network:
+    driver: bridge
+
+volumes:
+  nginx-conf:
+    driver: local
+    driver_opts:
+      o: bind
+      type: none
+      device: /d/mercury/nginx/conf
+  nginx-html:
+    driver: local
+    driver_opts:
+      o: bind
+      type: none
+      device: /d/mercury/nginx/html
+  certificate_center:
+    driver: local
+    driver_opts:
+      o: bind
+      type: none
+      device: /d/mercury/certificate_center
+  postgres-db:
+    driver: local
+    driver_opts:
+      o: bind
+      type: none
+      device: /d/mercury/postgres-db
+  openldap:
+    driver: local
+    driver_opts:
+      o: bind
+      type: none
+      device: /d/mercury/openldap
+  slapd-d:
+    driver: local
+    driver_opts:
+      o: bind
+      type: none
+      device: /d/mercury/slapd.d            
+  poi-server:
+    driver: local
+    driver_opts:
+      o: bind
+      type: none
+      device: /d/mercury/poi-server            
+  mercury-upload:
+    driver: local
+    driver_opts:
+      o: bind
+      type: none
+      device: /d/mercury/mercury-upload            
+  mercury-lucene:
+    driver: local
+    driver_opts:
+      o: bind
+      type: none
+      device: /d/mercury/mercury-lucene 
+ 
+services:
+  mercury:
+    image: ibpm/mercury-lb:mercury-hgdb-3.0
+    networks:
+      - mercury-network
+    build:
+      context: .
+    cap_add:
+      - SYS_ADMIN
+    security_opt:
+      - seccomp:unconfined
+    links:
+      - postgres-db
+      - activemq
+      - openldap
+      - poi-server-node1
+      - ehcache-node1
+      - mercury-node1
+    environment:
+      - HGDB_NODES=1
+      - SERVER_NAME=mercury-docker
+      - DOMAIN_NAME=hgdb.io
+      - HTTPS_PORT=1443
+      - COUNTRY=PL
+      - STATE=pomorskie
+      - CITY=Bojano
+      - ORG_NAME=Sci Software
+      - EMAIL=info@scisoftware.pl
+    volumes: 
+      - nginx-conf:/opt/nginx/conf:rw
+      - nginx-html:/opt/nginx/html:rw
+      - certificate_center:/opt/certificate_center:rw
+    ports:
+      - "1080:80"
+      - "1443:443"
+      
+  postgres-db:
+    image: ibpm/postgres:mercury-hgdb-3.0
+    networks:
+      - mercury-network
+    environment:
+      - POSTGRES_PASSWORD=secret
+      - PGDATA=/var/lib/postgresql/data/pgdata
+      - HGDB_USER_PASSWORD=mercury01
+    volumes: 
+      - postgres-db:/var/lib/postgresql/data:rw
+    ports:
+      - "15432:5432"
+      
+  activemq:
+    image: ibpm/activemq:mercury-hgdb-3.0
+    networks:
+      - mercury-network
+    environment:
+      - HGDB_NODES=1
+    depends_on:
+      - postgres-db
+    ports:
+      - "18161:8161"
+
+  openldap:
+    image: ibpm/openldap:mercury-hgdb-3.0
+    networks:
+      - mercury-network
+    environment:
+      - LDAP_ORG_DC=scisoftware
+      - LDAP_OLC_SUFFIX=dc=scisoftware,dc=pl
+      - LDAP_ROOT_CN=manager
+      - LDAP_ROOT_DN=cn=manager,dc=scisoftware,dc=pl
+      - LDAP_ROOT_PASSWD=secret
+      - LDAP_TECHNICAL_USER_CN=FrontendAccount
+      - LDAP_TECHNICAL_USER_PASSWD=secret
+    depends_on:
+      - activemq
+    volumes: 
+      - openldap:/var/lib/openldap:rw
+      - slapd-d:/etc/openldap/slapd.d:rw
+    ports:
+      - "389:389"
+      - "636:636"
+
+  ehcache-node1:
+    networks:
+      - mercury-network
+    image: ibpm/ehcache:mercury-hgdb-3.0
+    environment:
+      - HGDB_NODES=1
+      - HGDB_NODE=node1
+      
+  poi-server-node1:
+    image: ibpm/poi-server:mercury-hgdb-3.0
+    networks:
+      - mercury-network
+    environment:
+      - HGDB_NODE=node1
+    depends_on:
+      - openldap
+      - ehcache-node1
+    volumes: 
+      - poi-server:/opt/poi-server/data:rw
+    ports:
+      - "10090:10090"
+    
+  mercury-node1:
+    networks:
+      - mercury-network
+    image: ibpm/mercury:mercury-hgdb-3.0.3.2.11
+    environment:
+      - HGDB_NODE=node1
+      - HOST_NAME=mercury-node1
+      - HGDB_ROLE=MASTER
+      - HGDB_IS_CLUSTER=false
+      - HGDB_HA_GROUP=single
+      - HGDB_URL_SCHEMA=https
+      - HGDB_URL_HOST=mercury-docker.hgdb.io
+      - HGDB_URL_PORT=1443
+      - POI_SERVER_NAME=poi-server-node1
+      - LDAP_CONNECTION_NAME=cn=FrontendAccount,ou=Technical,dc=scisoftware,dc=pl
+      - LDAP_CONNECTION_PASSWD=secret
+      - LDAP_CONNECTION=ldap://openldap:389
+      - LDAP_USERS_DN=ou=People,dc=scisoftware,dc=pl
+      - LDAP_ROLES_DN=ou=Groups,dc=scisoftware,dc=pl
+      - POSTGRESQL_CONNECTION=postgres-db:5432
+      - POSTGRESQL_USER=mercury
+      - POSTGRESQL_PASSWD=mercury01
+      - ACTIVEMQ_TCP_CONNECTION=activemq:61616
+      - SECURITY_TOKEN=3e6769457de88565bfdeb3ba3765bec2
+      - EHCACHE_TERRACOTA_CONNECTION=ehcache-node1:9410/clustered
+    depends_on:
+      - poi-server-node1
+    volumes: 
+      - poi-server:/opt/mercury-3.0/poi-data:rw
+      - mercury-upload:/opt/mercury-3.0/upload:rw
+      - mercury-lucene:/opt/mercury-3.0/lucene:rw
+    ports:
+      - "8080:8080"
+    
+    
