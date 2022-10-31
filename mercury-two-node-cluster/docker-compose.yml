@@ -100,31 +100,31 @@ services:
       - mercury-node1
       - mercury-node2
     environment:
-      - HGDB_NODES=2
-      - SERVER_NAME=mercury-docker
-      - DOMAIN_NAME=hgdb.io
-      - HTTPS_PORT=1443
-      - COUNTRY=PL
-      - STATE=pomorskie
-      - CITY=Bojano
-      - ORG_NAME=Sci Software
-      - EMAIL=info@scisoftware.pl
+      - HGDB_NODES=${HGDB_NODES}
+      - SERVER_NAME=${SERVER_NAME}
+      - DOMAIN_NAME=${DOMAIN_NAME}
+      - HTTPS_PORT=${HGDB_URL_PORT}
+      - COUNTRY=${COUNTRY}
+      - STATE=${STATE}
+      - CITY=${CITY}
+      - ORG_NAME=${ORG_NAME}
+      - EMAIL=${EMAIL}
     volumes: 
       - nginx-conf:/opt/nginx/conf:rw
       - nginx-html:/opt/nginx/html:rw
       - certificate_center:/opt/certificate_center:rw
     ports:
       - "1080:80"
-      - "1443:443"
+      - "${HGDB_URL_PORT}:443"
       
   postgres-db:
     image: ibpm/postgres:mercury-hgdb-3.0
     networks:
       - mercury-network
     environment:
-      - POSTGRES_PASSWORD=secret
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
       - PGDATA=/var/lib/postgresql/data/pgdata
-      - HGDB_USER_PASSWORD=mercury01
+      - HGDB_USER_PASSWORD=${HGDB_USER_PASSWORD}
     volumes: 
       - postgres-db:/var/lib/postgresql/data:rw
     ports:
@@ -135,7 +135,11 @@ services:
     networks:
       - mercury-network
     environment:
-      - HGDB_NODES=2
+      - HGDB_NODES=${HGDB_NODES}
+      - POSTGRESQL_SERVER_NAME=postgres-db
+      - HGDB_USER_PASSWORD=${HGDB_USER_PASSWORD}
+      - MQ_ADMIN_PASSWORD=${MQ_ADMIN_PASSWORD}
+      - MQ_USER_PASSWORD=${MQ_USER_PASSWORD}
     depends_on:
       - postgres-db
     ports:
@@ -146,13 +150,13 @@ services:
     networks:
       - mercury-network
     environment:
-      - LDAP_ORG_DC=scisoftware
-      - LDAP_OLC_SUFFIX=dc=scisoftware,dc=pl
-      - LDAP_ROOT_CN=manager
-      - LDAP_ROOT_DN=cn=manager,dc=scisoftware,dc=pl
-      - LDAP_ROOT_PASSWD=secret
-      - LDAP_TECHNICAL_USER_CN=FrontendAccount
-      - LDAP_TECHNICAL_USER_PASSWD=secret
+      - LDAP_ORG_DC=${LDAP_ORG_DC}
+      - LDAP_OLC_SUFFIX=${LDAP_OLC_SUFFIX}
+      - LDAP_ROOT_CN=${LDAP_ROOT_CN}
+      - LDAP_ROOT_DN=cn=${LDAP_ROOT_CN},${LDAP_OLC_SUFFIX}
+      - LDAP_ROOT_PASSWD=${LDAP_ROOT_PASSWD}
+      - LDAP_TECHNICAL_USER_CN=${LDAP_TECHNICAL_USER_CN}
+      - LDAP_TECHNICAL_USER_PASSWD=${LDAP_TECHNICAL_USER_PASSWD}
     depends_on:
       - activemq
     volumes: 
@@ -167,16 +171,16 @@ services:
       - mercury-network
     image: ibpm/ehcache:mercury-hgdb-3.0
     environment:
-      - HGDB_NODES=2
-      - HGDB_NODE=node1
+      - HGDB_NODES=${HGDB_NODES}
+      - HGDB_NODE=${HGDB_NODE_1}
 
   ehcache-node2:
     networks:
       - mercury-network
     image: ibpm/ehcache:mercury-hgdb-3.0
     environment:
-      - HGDB_NODES=2
-      - HGDB_NODE=node2
+      - HGDB_NODES=${HGDB_NODES}
+      - HGDB_NODE=${HGDB_NODE_2}
     depends_on:
       - ehcache-node1
       
@@ -185,7 +189,7 @@ services:
     networks:
       - mercury-network
     environment:
-      - HGDB_NODE=node1
+      - HGDB_NODE=${HGDB_NODE_1}
     depends_on:
       - openldap
       - ehcache-node1
@@ -199,7 +203,7 @@ services:
     networks:
       - mercury-network
     environment:
-      - HGDB_NODE=node2
+      - HGDB_NODE=${HGDB_NODE_2}
     depends_on:
       - openldap
       - ehcache-node2
@@ -213,25 +217,25 @@ services:
       - mercury-network
     image: ibpm/mercury:mercury-hgdb-3.0.3.2.11
     environment:
-      - HGDB_NODE=node1
+      - HGDB_NODE=${HGDB_NODE_1}
       - HOST_NAME=mercury-node1
       - HGDB_ROLE=MASTER
       - HGDB_IS_CLUSTER=true
       - HGDB_HA_GROUP=dual
-      - HGDB_URL_SCHEMA=https
-      - HGDB_URL_HOST=mercury-docker.hgdb.io
-      - HGDB_URL_PORT=1443
+      - HGDB_URL_SCHEMA=${HGDB_URL_SCHEMA}
+      - HGDB_URL_HOST=${HGDB_URL_HOST}
+      - HGDB_URL_PORT=${HGDB_URL_PORT}
       - POI_SERVER_NAME=poi-server-node1
-      - LDAP_CONNECTION_NAME=cn=FrontendAccount,ou=Technical,dc=scisoftware,dc=pl
-      - LDAP_CONNECTION_PASSWD=secret
+      - LDAP_CONNECTION_NAME=cn=${LDAP_TECHNICAL_USER_CN},ou=Technical,${LDAP_OLC_SUFFIX}
+      - LDAP_CONNECTION_PASSWD=${LDAP_TECHNICAL_USER_PASSWD}
       - LDAP_CONNECTION=ldap://openldap:389
-      - LDAP_USERS_DN=ou=People,dc=scisoftware,dc=pl
-      - LDAP_ROLES_DN=ou=Groups,dc=scisoftware,dc=pl
+      - LDAP_USERS_DN=ou=People,${LDAP_OLC_SUFFIX}
+      - LDAP_ROLES_DN=ou=Groups,${LDAP_OLC_SUFFIX}
       - POSTGRESQL_CONNECTION=postgres-db:5432
       - POSTGRESQL_USER=mercury
-      - POSTGRESQL_PASSWD=mercury01
+      - POSTGRESQL_PASSWD=${HGDB_USER_PASSWORD}
       - ACTIVEMQ_TCP_CONNECTION=activemq:61616
-      - SECURITY_TOKEN=3e6769457de88565bfdeb3ba3765bec2
+      - SECURITY_TOKEN=${SECURITY_TOKEN}
       - EHCACHE_TERRACOTA_CONNECTION=ehcache-node1:9410/clustered,ehcache-node2:9410/clustered
     depends_on:
       - poi-server-node1
@@ -247,25 +251,25 @@ services:
       - mercury-network
     image: ibpm/mercury:mercury-hgdb-3.0.3.2.11
     environment:
-      - HGDB_NODE=node2
+      - HGDB_NODE=${HGDB_NODE_2}
       - HOST_NAME=mercury-node2
       - HGDB_ROLE=SLAVE
       - HGDB_IS_CLUSTER=true
       - HGDB_HA_GROUP=dual
-      - HGDB_URL_SCHEMA=https
-      - HGDB_URL_HOST=mercury-docker.hgdb.io
-      - HGDB_URL_PORT=1443
+      - HGDB_URL_SCHEMA=${HGDB_URL_SCHEMA}
+      - HGDB_URL_HOST=${HGDB_URL_HOST}
+      - HGDB_URL_PORT=${HGDB_URL_PORT}
       - POI_SERVER_NAME=poi-server-node2
-      - LDAP_CONNECTION_NAME=cn=FrontendAccount,ou=Technical,dc=scisoftware,dc=pl
-      - LDAP_CONNECTION_PASSWD=secret
+      - LDAP_CONNECTION_NAME=cn=${LDAP_TECHNICAL_USER_CN},ou=Technical,${LDAP_OLC_SUFFIX}
+      - LDAP_CONNECTION_PASSWD=${LDAP_TECHNICAL_USER_PASSWD}
       - LDAP_CONNECTION=ldap://openldap:389
-      - LDAP_USERS_DN=ou=People,dc=scisoftware,dc=pl
-      - LDAP_ROLES_DN=ou=Groups,dc=scisoftware,dc=pl
+      - LDAP_USERS_DN=ou=People,${LDAP_OLC_SUFFIX}
+      - LDAP_ROLES_DN=ou=Groups,${LDAP_OLC_SUFFIX}
       - POSTGRESQL_CONNECTION=postgres-db:5432
       - POSTGRESQL_USER=mercury
-      - POSTGRESQL_PASSWD=mercury01
+      - POSTGRESQL_PASSWD=${HGDB_USER_PASSWORD}
       - ACTIVEMQ_TCP_CONNECTION=activemq:61616
-      - SECURITY_TOKEN=3e6769457de88565bfdeb3ba3765bec2
+      - SECURITY_TOKEN=${SECURITY_TOKEN}
       - EHCACHE_TERRACOTA_CONNECTION=ehcache-node1:9410/clustered,ehcache-node2:9410/clustered
     depends_on:
       - poi-server-node2
