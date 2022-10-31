@@ -25,13 +25,13 @@ Follow picture describes architecture of Two-nodes cluster IBPM Mercury (HgDB) c
 ## Run compose step-by-step
 
 The composition consists of the following images:
-- the [PostgreSQL](../postgresql) container.
-- the [Apache ActiveMQ](../activemq) container.
-- the [OpenLDAP](../openldap) container.
-- the [Iron - POI Excel Serwer](../poi-server) container.
-- the [Clustered Cache](../ehcache) container.
-- the [IBPM Mercury (HgDB)](../mercury-3.0) container.
-- the [IBPM Mercury (HgDB) LoadBalancer](../mercury-lb) container.
+- the [PostgreSQL](https://hub.docker.com/repository/docker/ibpm/postgres) container.
+- the [Apache ActiveMQ](https://hub.docker.com/repository/docker/ibpm/activemq) container.
+- the [OpenLDAP](https://hub.docker.com/repository/docker/ibpm/openldap) container.
+- the [Iron - POI Excel Serwer](https://hub.docker.com/repository/docker/ibpm/poi-server) container.
+- the [Clustered Cache](https://hub.docker.com/repository/docker/ibpm/ehcache) container.
+- the [IBPM Mercury (HgDB)](https://hub.docker.com/repository/docker/ibpm/mercury) container.
+- the [IBPM Mercury (HgDB) LoadBalancer](https://hub.docker.com/repository/docker/ibpm/mercury-lb) container.
 
 Definition of compose is in file [docker-compose.yml](docker-compose.yml).
 
