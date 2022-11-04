@@ -1,4 +1,4 @@
-# ![](01_docs/logo_48x48.png) IBPM Mercury DB (HgDB) 
+# ![](01_docs/logo_48x48.png) IBPM Mercury DB (HgDB) for Docker
 
 > IBPM Mercury DB (HgDB) is a service server (SOAP and REST) that allows you to manage any objects, also called cases. Its engine is based on the relational SQL model (data is stored in a relational database). The combination of objects and relationships allows you to use Mercury DB as an object database supporting ACID (Atomicity, Consistency, Isolation, Durability) transactions as well as integrating it with traditional BI (Business Intelligence) systems for business data analysis. It connects the world of NoSQL databases (such as ElasticSearch, Mongo DB) with the world of relational databases (Oracle, DB2, PostgreSQL, MySQL). The commercial version of the server is distributed by  IBPM. The website was created to promote awareness of the solution among mobile and web application developers. The articles will include API descriptions, good practices of using the system and news, development plans and interesting facts related to the implementation of both the server and its clients.
 
@@ -11,5 +11,63 @@
 :point_right: IBPM Mercury DB (HgDB) data repository stores metadata about the types of objects as well as the method of their presentation on  web forms and mobile applications. Therefore, it is an ideal solution for the implementation of the mechanisms of their automatic generation, dynamic presentation of data to the end user.
 
 :point_right: More about project and product you can read on [Mercury DB (HgDB) 3.0](https://hgdb-org.translate.goog/?_x_tr_sl=pl&_x_tr_tl=en&_x_tr_hl=pl&_x_tr_pto=wapp) page.
+
+## Prerequisites
+
+- Docker Engine v20.10.17
+
+## Install a Docker Engine
+
+[Docker Engine](https://docs.docker.com/engine/) is an open source containerization technology for building and containerizing your applications. Docker Engine acts as a client-server application with:
+
+- A server with a long-running daemon process dockerd.
+- APIs which specify interfaces that programs can use to talk to and instruct the Docker daemon.
+- A command line interface (CLI) client docker.
+
+The CLI uses Docker APIs to control or interact with the Docker daemon through scripting or direct CLI commands. Many other Docker applications use the underlying API and CLI. The daemon creates and manage Docker objects, such as images, containers, networks, and volumes.
+
+Go to [Docker Engine installation overview](https://docs.docker.com/engine/install/) page to learn how to install it on various system platforms.
+
+## Download images from dockerhub
+
+The composition consists of the following images:
+- the [PostgreSQL](https://hub.docker.com/repository/docker/ibpm/postgres) container.
+```
+docker push ibpm/postgres:mercury-hgdb-3.0
+```
+- the [Apache ActiveMQ](https://hub.docker.com/repository/docker/ibpm/activemq) container.
+```
+docker push ibpm/activemq:mercury-hgdb-3.0
+```
+- the [OpenLDAP](https://hub.docker.com/repository/docker/ibpm/openldap) container.
+```
+docker push ibpm/openldap:mercury-hgdb-3.0
+```
+- the [Iron - POI Excel Serwer](https://hub.docker.com/repository/docker/ibpm/poi-server) container.
+```
+docker push ibpm/poi-server:mercury-hgdb-3.0
+```
+- the [Clustered Cache](https://hub.docker.com/repository/docker/ibpm/ehcache) container.
+```
+docker push ibpm/ehcache:mercury-hgdb-3.0
+```
+- the [IBPM Mercury (HgDB)](https://hub.docker.com/repository/docker/ibpm/mercury) container.
+```
+docker push ibpm/mercury:mercury-hgdb-3.0.3.2.11
+```
+- the [IBPM Mercury (HgDB) LoadBalancer](https://hub.docker.com/repository/docker/ibpm/mercury-lb) container.
+```
+docker push ibpm/mercury-lb:mercury-hgdb-3.0
+```
+
+
+
+
+## License types
+
+## License key request
+
+
+
 
 
