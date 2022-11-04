@@ -1,4 +1,4 @@
-# IBPM Mercury DB (HgDB) 
+# ![](01_docs/logo_48x48.png) IBPM Mercury DB (HgDB) 
 
 > IBPM Mercury DB (HgDB) is a service server (SOAP and REST) that allows you to manage any objects, also called cases. Its engine is based on the relational SQL model (data is stored in a relational database). The combination of objects and relationships allows you to use Mercury DB as an object database supporting ACID (Atomicity, Consistency, Isolation, Durability) transactions as well as integrating it with traditional BI (Business Intelligence) systems for business data analysis. It connects the world of NoSQL databases (such as ElasticSearch, Mongo DB) with the world of relational databases (Oracle, DB2, PostgreSQL, MySQL). The commercial version of the server is distributed by  IBPM. The website was created to promote awareness of the solution among mobile and web application developers. The articles will include API descriptions, good practices of using the system and news, development plans and interesting facts related to the implementation of both the server and its clients.
 
