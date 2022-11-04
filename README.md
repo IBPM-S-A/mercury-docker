@@ -4,7 +4,7 @@
 
 | Project name | Akronym | Last version | Code inspection | 
 |--------------|--------------|--------------|--------------|
-| Mercury DB (HgDB) 3.0 | HgDB | 3.0.3.2.11 | ![SonarCloud](https://sonarcloud.io/dashboard?id=io.hgdb%3Amercury) ![Quality Gate Status](https://sonarcloud.io/dashboard?id=io.hgdb%3Amercury) | 
+| Mercury DB (HgDB) 3.0 | HgDB | 3.0.3.2.11 | ![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=io.hgdb%3Amercury&metric=alert_status) | 
 
 :point_right: IBPM Mercury DB (HgDB) was created out of the need to effectively register, search, compare and audit data that is used during the operation of process applications in the company.
 
