@@ -137,7 +137,7 @@ Protocol and host name definition.
 | Variable       | Sample value | Description |
 |------------|-------------|-------------|
 | HGDB_URL_SCHEMA | https | IBPM Mercury (HgDB) node URL schema. Possible values: "http" or "https" |
-| HGDB_URL_HOST | mercury&#8209;docker.hgdb.org | IBPM Mercury (HgDB) node URL host name (with domain) e.g. "mercury&#8209;docker.hgdb.org"  |
+| HGDB_URL_HOST | mercury&#8209;docker.hgdb.io | IBPM Mercury (HgDB) node URL host name (with domain) e.g. "mercury&#8209;docker.hgdb.io"  |
 | HGDB_URL_PORT | 1443 | IBPM Mercury (HgDB) service URL port number e.g. "1443"  |
 
 ![](../01_docs/04_base_url_parameters.png)
