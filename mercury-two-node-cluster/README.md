@@ -50,7 +50,7 @@ Compose require volumes, where be stored system data. You should prepare follow 
 | mercury&#8209;upload&#8209;2 | mercury&#8209;node2&#8209;1 | /d/mercury/mercury&#8209;upload&#8209;2 | IBPM Mercury (HgDB) document repository folder |
 | mercury&#8209;lucene&#8209;2 | mercury&#8209;node2&#8209;1 | /d/mercury/mercury&#8209;lucene&#8209;2 | IBPM Mercury (HgDB) Lucene index data folder |
 
-See section "volumes" in file [docker-compose.yml](docker-compose.yml), line 7:
+You can create volume following by instruction on docker documentation page [Use volumes](https://docs.docker.com/storage/volumes/) or change volumes definition in file [docker-compose.yml](docker-compose.yml) (see section "volumes" , line 7):
 ```
 volumes:
   nginx-conf:
