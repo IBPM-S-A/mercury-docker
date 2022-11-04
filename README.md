@@ -18,9 +18,10 @@
 
 ## Prerequisites
 
-- Docker Engine v20.10.17
+- Installed Docker Engine
+- Installed Docker Compose
 
-## Install a Docker Engine
+### Docker Engine
 
 [Docker Engine](https://docs.docker.com/engine/) is an open source containerization technology for building and containerizing your applications. Docker Engine acts as a client-server application with:
 
@@ -31,6 +32,13 @@
 The CLI uses Docker APIs to control or interact with the Docker daemon through scripting or direct CLI commands. Many other Docker applications use the underlying API and CLI. The daemon creates and manage Docker objects, such as images, containers, networks, and volumes.
 
 Go to [Docker Engine installation overview](https://docs.docker.com/engine/install/) page to learn how to install it on various system platforms.
+
+### Docker Compose
+
+[Compose](https://docs.docker.com/compose/) is a tool for defining and running multi-container Docker applications. With Compose, you use a YAML file to configure your application’s services. Then, with a single command, you create and start all the services from your configuration.
+
+Go to [Docker Compose installation overview](https://docs.docker.com/compose/install/) page to learn how to install it on various system platforms.
+
 
 ## Download images from dockerhub
 
@@ -64,7 +72,7 @@ docker push ibpm/mercury:mercury-hgdb-3.0.3.2.11
 docker push ibpm/mercury-lb:mercury-hgdb-3.0
 ```
 
-
+## Up docker compose
 
 
 ## License types
