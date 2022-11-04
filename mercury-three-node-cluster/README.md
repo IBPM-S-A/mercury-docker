@@ -6,6 +6,15 @@ Follow picture describes architecture of Two-nodes cluster IBPM Mercury (HgDB) c
 
 ## Containers list
 
+The composition consists of the following images:
+- the [PostgreSQL](https://hub.docker.com/repository/docker/ibpm/postgres) container.
+- the [Apache ActiveMQ](https://hub.docker.com/repository/docker/ibpm/activemq) container.
+- the [OpenLDAP](https://hub.docker.com/repository/docker/ibpm/openldap) container.
+- the [Iron - POI Excel Serwer](https://hub.docker.com/repository/docker/ibpm/poi-server) container.
+- the [Clustered Cache](https://hub.docker.com/repository/docker/ibpm/ehcache) container.
+- the [IBPM Mercury (HgDB)](https://hub.docker.com/repository/docker/ibpm/mercury) container.
+- the [IBPM Mercury (HgDB) LoadBalancer](https://hub.docker.com/repository/docker/ibpm/mercury-lb) container.
+
 | Name     | Image | Depends on | Component | 
 |------------|-------------|-------------|-------------|
 | mercury-1 | ibpm/mercury-lb:mercury-hgdb-3.0 | mercury-node1-1<br/>mercury-node2-1 | IBPM Mercury LoadBalancer |
@@ -27,16 +36,7 @@ Follow picture describes architecture of Two-nodes cluster IBPM Mercury (HgDB) c
 
 ## Run compose step-by-step
 
-The composition consists of the following images:
-- the [PostgreSQL](https://hub.docker.com/repository/docker/ibpm/postgres) container.
-- the [Apache ActiveMQ](https://hub.docker.com/repository/docker/ibpm/activemq) container.
-- the [OpenLDAP](https://hub.docker.com/repository/docker/ibpm/openldap) container.
-- the [Iron - POI Excel Serwer](https://hub.docker.com/repository/docker/ibpm/poi-server) container.
-- the [Clustered Cache](https://hub.docker.com/repository/docker/ibpm/ehcache) container.
-- the [IBPM Mercury (HgDB)](https://hub.docker.com/repository/docker/ibpm/mercury) container.
-- the [IBPM Mercury (HgDB) LoadBalancer](https://hub.docker.com/repository/docker/ibpm/mercury-lb) container.
-
-Definition of compose is in file [docker-compose.yml](docker-compose.yml).
+Sample definition of compose is in file [docker-compose.yml](docker-compose.yml).
 
 ### Step 1 - prepare volumes
 Compose require volumes, where be stored system data. You should prepare follow volumes:
