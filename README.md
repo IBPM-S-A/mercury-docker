@@ -72,12 +72,19 @@ docker push ibpm/mercury:mercury-hgdb-3.0.3.2.11
 docker push ibpm/mercury-lb:mercury-hgdb-3.0
 ```
 
-## Up docker compose
+## Run IBPM Mercury (HgDB) as Docker Compose
 
+Download **mercury-docker** project as [ZIP file](https://github.com/IBPM-S-A/mercury-docker/archive/refs/heads/main.zip) or use git command.
+This project has three sample compose definitions in follow folders:
+- [mercury-single-node](mercury-single-node) - compose of single node cluster of IBPM Mercury (HgDB).
+- [mercury-two-node-cluster](mercury-two-node-cluster) - compose of two-nodes cluster of IBPM Mercury (HgDB).
+- [mercury-three-node-cluster](mercury-three-node-cluster) - compose of three-nodes cluster of IBPM Mercury (HgDB).
 
-## License types
+In the folders there are README.md files with a described instruction (step by step) on how to run the selected docker compose.
 
 ## License key request
+
+
 
 
 
