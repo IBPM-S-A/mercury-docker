@@ -31,9 +31,6 @@ The composition consists of the following images:
 | postgres-db-1 | ibpm/postgres:mercury-hgdb-3.0 | - |PostgreSQL Database (Backend service) |
 | openldap-1 | ibpm/openldap:mercury-hgdb-3.0 | - | OpenLDAP (Backend service) |
 
-![](../01_docs/08_containers_list_three.png)
-
-
 ## Run compose step-by-step
 
 Sample definition of compose is in file [docker-compose.yml](docker-compose.yml).
