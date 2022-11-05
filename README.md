@@ -89,8 +89,7 @@ With the first launch of the product, a Trial license key is generated, which al
 Name/Company name: Your name or name of your organization (company)
 Technical contact: Name of person and address e-mail for technical contact to you / your organization
 Bill contact: Name of the person and e-mail address to contact you / your organization in order to carry out financial settlements related to the use of the product.
-License type: Choose one of the license types: COMMUNITY, SINGLE_NODE, ENTERPRISE (see )
-
+License type: Choose one of the license types: COMMUNITY, SINGLE_NODE, ENTERPRISE
 ```
 In response, you will receive a license key file. Put the file in the following IBPM Mercury location on all running nodes (IBPM Mercury (HgDB) containers):
 ```
@@ -99,7 +98,6 @@ In response, you will receive a license key file. Put the file in the following 
 
 # License
 
-------
 ©2022 IBPM S.A. All rights reserved.
 ------
 
