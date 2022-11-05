@@ -76,13 +76,44 @@ docker push ibpm/mercury-lb:mercury-hgdb-3.0
 
 Download **mercury-docker** project as [ZIP file](https://github.com/IBPM-S-A/mercury-docker/archive/refs/heads/main.zip) or use git command.
 This project has three sample compose definitions in follow folders:
-- [mercury-single-node](mercury-single-node) - compose of single node cluster of IBPM Mercury (HgDB).
+- [mercury-single-node](mercury-single-node) - compose of single node of IBPM Mercury (HgDB).
 - [mercury-two-node-cluster](mercury-two-node-cluster) - compose of two-nodes cluster of IBPM Mercury (HgDB).
 - [mercury-three-node-cluster](mercury-three-node-cluster) - compose of three-nodes cluster of IBPM Mercury (HgDB).
 
 In the folders there are README.md files with a described instruction (step by step) on how to run the selected docker compose.
 
 ## License key request
+
+With the first launch of the product, a Trial license key is generated, which allows for 30 days of use. If you want to use the product, register it by sending an email to mercury-key-registration@ibpm.pro. Send a message based on the following pattern, providing the necessary registration data:
+```
+Name/Company name: Your name or name of your organization (company)
+Technical contact: Name of person and address e-mail for technical contact to you / your organization
+Bill contact: Name of the person and e-mail address to contact you / your organization in order to carry out financial settlements related to the use of the product.
+License type: Choose one of the license types: COMMUNITY, SINGLE_NODE, ENTERPRISE (see )
+
+```
+In response, you will receive a license key file. Put the file in the following IBPM Mercury location on all running nodes (IBPM Mercury (HgDB) containers):
+```
+/opt/mercury-3.0/lucene/LicenseKey.txt
+```
+
+# License
+
+
+
+Following license types as available on IBPM Mercury DB (HgDB) for Docker:
+- TRIAL - free, 
+- COMMUNITY - free, 
+- SINGLE_NODE - paid license, please contact with mercury-key-registration@ibpm.pro for more details.
+- ENTERPRISE - paid license, please contact with mercury-key-registration@ibpm.pro for more details.
+
+Comparison of license types:
+| | TRIAL | COMMUNITY | SINGLE_NODE | ENTERPRISE | 
+|------|------|------|------|------|
+| Expiration interval | 30 days | unlimited | unlimited | unlimited |
+| Node counter | max. 3 |  max. 1 |  max. 1 | max. 16 | 
+| Node names | node1[,node2,node3] | node1 |  node1| node1[,node2,...,node16] | 
+| Support | no |  no |  yes | yes | 
 
 
 
