@@ -99,13 +99,15 @@ In response, you will receive a license key file. Put the file in the following 
 
 # License
 
+------
+©2022 IBPM S.A. All rights reserved.
+------
 
-
-Following license types as available on IBPM Mercury DB (HgDB) for Docker:
-- TRIAL - free, 
-- COMMUNITY - free, 
-- SINGLE_NODE - paid license, please contact with mercury-key-registration@ibpm.pro for more details.
-- ENTERPRISE - paid license, please contact with mercury-key-registration@ibpm.pro for more details.
+Following license types are available on IBPM Mercury DB (HgDB) for Docker:
+- **TRIAL** - free, 
+- **COMMUNITY** - free, only registration required
+- **SINGLE_NODE** - paid license, please contact with mercury-key-registration@ibpm.pro for more details.
+- **ENTERPRISE** - paid license, please contact with mercury-key-registration@ibpm.pro for more details.
 
 Comparison of license types:
 | | TRIAL | COMMUNITY | SINGLE_NODE | ENTERPRISE | 
