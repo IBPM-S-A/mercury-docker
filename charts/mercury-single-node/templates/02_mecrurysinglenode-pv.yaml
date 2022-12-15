@@ -1,0 +1,170 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: mercurysinglenode-nginx-conf-vol1
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: nginx
+    io.kompose.name: mercury-single-node
+spec:
+  capacity:
+    storage: {{ .Values.nfsVolumes.nginx.conf.storage }}
+  accessModes:
+    - ReadWriteMany
+  nfs:
+    server: {{ .Values.nfsVolumes.nginx.server }}
+    path: "{{ .Values.nfsVolumes.nginx.conf.path }}"
+  mountOptions:
+    - nfsvers=4.2
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: mercurysinglenode-nginx-html-vol1
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: nginx
+    io.kompose.name: mercury-single-node
+spec:
+  capacity:
+    storage: {{ .Values.nfsVolumes.nginx.html.storage }}
+  accessModes:
+    - ReadWriteMany
+  nfs:
+    server: {{ .Values.nfsVolumes.nginx.server }}
+    path: "{{ .Values.nfsVolumes.nginx.html.path }}"
+  mountOptions:
+    - nfsvers=4.2
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: mercurysinglenode-certificate-center-vol1
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: nginx
+    io.kompose.name: mercury-single-node
+spec:
+  capacity:
+    storage: {{ .Values.nfsVolumes.certificateCenter.storage }}
+  accessModes:
+    - ReadWriteMany
+  nfs:
+    server: {{ .Values.nfsVolumes.certificateCenter.server }}
+    path: "{{ .Values.nfsVolumes.certificateCenter.path }}"
+  mountOptions:
+    - nfsvers=4.2
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: mercurysinglenode-postgres-db-vol1
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: postgresql
+    io.kompose.name: mercury-single-node
+spec:
+  capacity:
+    storage: {{ .Values.nfsVolumes.postgresDb.storage }}
+  accessModes:
+    - ReadWriteMany
+  nfs:
+    server: {{ .Values.nfsVolumes.postgresDb.server }}
+    path: "{{ .Values.nfsVolumes.postgresDb.path }}"
+  mountOptions:
+    - nfsvers=4.2
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: mercurysinglenode-openldap-ldap-vol1
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: openldap
+    io.kompose.name: mercury-single-node
+spec:
+  capacity:
+    storage: {{ .Values.nfsVolumes.openldap.ldap.storage }}
+  accessModes:
+    - ReadWriteMany
+  nfs:
+    server: {{ .Values.nfsVolumes.openldap.server }}
+    path: "{{ .Values.nfsVolumes.openldap.ldap.path }}"
+  mountOptions:
+    - nfsvers=4.2
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: mercurysinglenode-openldap-slapd-vol1
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: openldap
+    io.kompose.name: mercury-single-node
+spec:
+  capacity:
+    storage: {{ .Values.nfsVolumes.openldap.slapd.storage }}
+  accessModes:
+    - ReadWriteMany
+  nfs:
+    server: {{ .Values.nfsVolumes.openldap.server }}
+    path: "{{ .Values.nfsVolumes.openldap.slapd.path }}"
+  mountOptions:
+    - nfsvers=4.2
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: mercurysinglenode-poi-server-vol1
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: poiServer
+    io.kompose.name: mercury-single-node
+spec:
+  capacity:
+    storage: {{ .Values.nfsVolumes.poiServer.storage }}
+  accessModes:
+    - ReadWriteMany
+  nfs:
+    server: {{ .Values.nfsVolumes.poiServer.server }}
+    path: "{{ .Values.nfsVolumes.poiServer.path }}"
+  mountOptions:
+    - nfsvers=4.2
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: mercurysinglenode-mercury-upload-vol1
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: mercury
+    io.kompose.name: mercury-single-node
+spec:
+  capacity:
+    storage: {{ .Values.nfsVolumes.mercury.upload.storage }}
+  accessModes:
+    - ReadWriteMany
+  nfs:
+    server: {{ .Values.nfsVolumes.mercury.server }}
+    path: "{{ .Values.nfsVolumes.mercury.upload.path }}"
+  mountOptions:
+    - nfsvers=4.2
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: mercurysinglenode-mercury-lucene-vol1
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: mercury
+    io.kompose.name: mercury-single-node
+spec:
+  capacity:
+    storage: {{ .Values.nfsVolumes.mercury.lucene.storage }}
+  accessModes:
+    - ReadWriteMany
+  nfs:
+    server: {{ .Values.nfsVolumes.mercury.server }}
+    path: "{{ .Values.nfsVolumes.mercury.lucene.path }}"
+  mountOptions:
+    - nfsvers=4.2

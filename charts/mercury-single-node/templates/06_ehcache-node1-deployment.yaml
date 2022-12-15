@@ -1,0 +1,67 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ehcache-node1
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: ehcache
+    io.kompose.name: mercury-single-node
+    io.kompose.service: ehcache-node1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: ehcache-node1
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: ehcache-node1
+    spec:
+      hostname: ehcache-node1
+      imagePullSecrets:
+        - name: "{{ .Values.image.pullSecret }}"
+      containers:
+        - name: ehcache-node1
+          image: "{{ .Values.image.registry }}ehcache:{{ .Values.image.mainTag }}"
+          env:
+            - name: HGDB_NODE
+              valueFrom:
+                configMapKeyRef:
+                  name: mercury-hgdb #Read from a configmap called oradb
+                  key: HGDB_NODE #Read the key
+            - name: HGDB_NODES
+              valueFrom:
+                configMapKeyRef:
+                  name: mercury-hgdb #Read from a configmap called oradb
+                  key: HGDB_NODES #Read the key
+          ports:
+            - containerPort: 9410
+            - containerPort: 9430                  
+          resources: {}
+      restartPolicy: Always
+status: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ehcache-node1
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: ehcache
+    io.kompose.name: mercury-single-node
+    io.kompose.service: ehcache-node1
+spec:
+  selector:
+    io.kompose.service: ehcache-node1
+  ports:
+    - name: "group"
+      port: 9410
+      targetPort: 9410
+    - name: "node"
+      port: 9430
+      targetPort: 9430
+  type: NodePort
+status:
+  loadBalancer: {}

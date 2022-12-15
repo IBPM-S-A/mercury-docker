@@ -1,0 +1,42 @@
+apiVersion: v1
+name: mercury-single-node
+type: application
+version: 0.1.0
+appVersion: "3.0.3.2.11" 
+description: Mercury DB (HgDB) is a service server (SOAP and REST) ​​that allows you to manage any objects, also called 
+  cases. Its engine is based on the relational SQL model (data is stored in a relational database). The combination of 
+  objects and relationships allows you to use Mercury DB as an object database supporting ACID (Atomicity, Consistency, 
+  Isolation, Durability) transactions as well as integrating it with traditional BI (Business Intelligence) systems for 
+  business data analysis. It connects the world of NoSQL databases (such as ElasticSearch, Mongo DB) with the world of 
+  relational databases (Oracle, DB2, PostgreSQL, MySQL). The commercial version of the server is distributed by IBPM. 
+  The website was created to promote awareness of the solution among mobile and web application developers. The articles 
+  will include API descriptions, good practices of using the system and news, development plans and interesting facts 
+  related to the implementation of both the server and its clients.
+home: https://hgdb.org/
+icon: https://hgdb.org/confluence/download/attachments/557057/MDH3?version=2&modificationDate=1593507708000&api=v2
+keywords:
+  - mercury-single-node
+  - database
+  - case
+  - object
+  - fast
+  - search
+  - index
+  - Lucene
+  - soap
+  - rest
+  - service
+  - data
+  - soa
+sources:
+  - https://github.com/IBPM-S-A/mercury-docker
+  - https://github.com/SciSoftwareSlawomirCichy/mercury-docker
+  - https://github.com/slawascichy/hgdb
+maintainers:
+  - name: IBPM S.A.
+    email: mercury-key-registration@ibpm.pro
+    url: https://ibpm.pro/
+  - name: Sci Software Sławomir Cichy
+    email: info@scisoftware.pl
+    url: https://scisoftware.pl/
+kubeVersion: '>=1.16.0-0'

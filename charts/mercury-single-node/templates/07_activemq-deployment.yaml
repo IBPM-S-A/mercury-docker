@@ -1,0 +1,95 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: activemq
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: activemq
+    io.kompose.name: mercury-single-node
+    io.kompose.service: activemq
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: activemq
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: activemq
+    spec:
+      hostname: activemq
+      imagePullSecrets:
+        - name: "{{ .Values.image.pullSecret }}"
+      containers:
+        - name: activemq
+          image: "{{ .Values.image.registry }}activemq:{{ .Values.image.mainTag }}"
+          env:
+            - name: HGDB_NODES
+              valueFrom:
+                configMapKeyRef:
+                  name: mercury-hgdb #Read from a configmap called oradb
+                  key: HGDB_NODES #Read the key
+            - name: HGDB_USER_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  name: mercury-hgdb #Read from a configmap called oradb
+                  key: HGDB_USER_PASSWORD #Read the key 
+            - name: MQ_ADMIN_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  name: mercury-hgdb #Read from a configmap called oradb
+                  key: MQ_ADMIN_PASSWORD #Read the key 
+            - name: MQ_USER_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  name: mercury-hgdb #Read from a configmap called oradb
+                  key: MQ_USER_PASSWORD #Read the key 
+            - name: POSTGRESQL_SERVER_NAME
+              value: postgres-db
+          ports:
+            - containerPort: 8161
+              name: http
+            - containerPort: 8778
+              name: jolokia
+              protocol: TCP
+            - containerPort: 5672
+              name: amqp
+              protocol: TCP
+            - containerPort: 1883
+              name: mqtt
+              protocol: TCP
+            - containerPort: 61613
+              name: stomp
+              protocol: TCP
+            - containerPort: 61616
+              name: tcp
+              protocol: TCP
+          resources: {}
+      restartPolicy: Always
+status: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: activemq
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: activemq
+    io.kompose.name: mercury-single-node
+    io.kompose.service: activemq
+spec:
+  selector:
+    io.kompose.service: activemq
+  ports:
+    - name: "http"
+      port: 8161
+      targetPort: 8161
+    - name: tcp
+      port: 61616
+      protocol: TCP
+      targetPort: 61616
+  type: NodePort
+status:
+  loadBalancer: {}

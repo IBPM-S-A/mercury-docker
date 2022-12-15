@@ -1,0 +1,46 @@
+apiVersion: v1 
+kind: ConfigMap 
+metadata:
+  name: mercury-hgdb
+  namespace: {{ .Release.Namespace }}
+  labels:
+    io.kompose.name: mercury-single-node
+data:
+  # Configuration values can be set as key-value properties
+  HGDB_URL_SCHEMA: "{{ .Values.url.schema }}"
+  HGDB_URL_HOST: "{{ .Values.url.host }}"
+  HGDB_URL_PORT: "{{ .Values.url.port }}"
+  # SSL certificate data - START
+  SERVER_NAME: "{{ .Values.sslCertificate.serverName }}"
+  DOMAIN_NAME: "{{ .Values.sslCertificate.domainName }}"
+  COUNTRY: "{{ .Values.sslCertificate.country }}"
+  STATE: "{{ .Values.sslCertificate.state }}"
+  CITY: "{{ .Values.sslCertificate.city }}"
+  ORG_NAME: "{{ .Values.sslCertificate.org }}"
+  EMAIL: "{{ .Values.sslCertificate.email }}"
+  # SSL certificate data - END
+  # System credentials - START
+  POSTGRES_PASSWORD: "{{ .Values.credentials.postgresqlPassword }}"
+  HGDB_USER_PASSWORD: "{{ .Values.credentials.hgdbUserPassword }}"
+  MQ_ADMIN_PASSWORD: "{{ .Values.credentials.mqAdminPassword }}"
+  MQ_USER_PASSWORD: "{{ .Values.credentials.mqUserPassword }}"
+  SECURITY_TOKEN: "{{ .Values.credentials.securityToken }}"
+  # System credentials - END
+  # LDAP init data - START
+  LDAP_ORG_DC: "{{ .Values.ldap.orgDC }}"
+  LDAP_OLC_SUFFIX: "{{ .Values.ldap.olcSuffix }}"
+  LDAP_ROOT_CN: "{{ .Values.ldap.rootCN }}"
+  LDAP_ROOT_DN: "cn={{ .Values.ldap.rootCN }},{{ .Values.ldap.olcSuffix }}"
+  LDAP_ROOT_PASSWD: "{{ .Values.ldap.rootPassword }}"
+  LDAP_TECHNICAL_USER_CN: "{{ .Values.ldap.technicalUserCN }}"
+  LDAP_TECHNICAL_USER_PASSWD: "{{ .Values.ldap.technicalUserPassword }}"
+  LDAP_CONNECTION_NAME: "cn={{ .Values.ldap.technicalUserCN }},ou=Technical,{{ .Values.ldap.olcSuffix }}"
+  LDAP_ROLES_DN: "ou=Groups,{{ .Values.ldap.olcSuffix }}"
+  LDAP_USERS_DN: "ou=People,{{ .Values.ldap.olcSuffix }}"
+  # LDAP init data - END
+  #####################################
+  # Don't change it - START
+  HGDB_NODES: "1"
+  HGDB_NODE: "node1"
+  # Don't change it - END
+  #####################################

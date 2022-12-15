@@ -1,0 +1,85 @@
+# Image repository data - START
+image:
+  pullSecret: icr-io-token
+  registry: icr.io/ibpm/
+  mainTag: mercury-hgdb-3.0
+  hgdbTag: mercury-hgdb-3.0.3.2.11
+
+# Image repository data - END
+
+# URL connection - START
+url:
+  schema: https
+  host: kube-master.hgdb.org
+  port: 31443
+# URL connection - END
+
+# SSL certificate data - START
+sslCertificate:
+  serverName: kube-master
+  domainName: hgdb.org
+  country: PL
+  state: pomorskie
+  city: Bojano
+  org: Sci Software
+  email: info@scisoftware.pl
+# SSL certificate data - END
+
+# System credentials - START
+credentials:
+  postgresqlPassword: secret
+  hgdbUserPassword: mercury01
+  mqAdminPassword: admin
+  mqUserPassword: user
+  securityToken: 3e6769457de88565bfdeb3ba3765bec2
+# System credentials - END
+
+# LDAP init data - START
+ldap:
+  orgDC: scisoftware
+  olcSuffix: dc=scisoftware,dc=pl
+  rootCN: manager
+  rootPassword: secret
+  technicalUserCN: FrontendAccount
+  technicalUserPassword: secret
+# LDAP init data - END
+
+# NFS Volumes parameters - START
+nfsVolumes:
+  nginx:
+    server: kube-master.hgdb.org
+    conf:
+      path: /mnt/shared/nginx/conf
+      storage: 10Mi
+    html: 
+      path: /mnt/shared/nginx/html
+      storage: 10Mi
+  certificateCenter:
+    server: kube-master.hgdb.org
+    path: /mnt/shared/certificate_center
+    storage: 10Mi
+  postgresDb:
+    server: kube-master.hgdb.org
+    path: /mnt/shared/postgres-db
+    storage: 100Mi
+  openldap:
+    server: kube-master.hgdb.org
+    ldap: 
+      path: /mnt/shared/openldap
+      storage: 100Mi
+    slapd: 
+      path: /mnt/shared/slapd.d
+      storage: 10Mi 
+  poiServer:
+    server: kube-master.hgdb.org
+    path: /mnt/shared/poi-server
+    storage: 50Mi
+  mercury:
+    server: kube-master.hgdb.org
+    upload: 
+      path: /mnt/shared/mercury-upload
+      storage: 100Mi
+    lucene: 
+      path: /mnt/shared/mercury-lucene
+      storage: 100Mi
+# NFS Volumes parameters - END
