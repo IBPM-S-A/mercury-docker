@@ -45,31 +45,31 @@ Go to [Docker Compose installation overview](https://docs.docker.com/compose/ins
 The composition consists of the following images:
 - the [PostgreSQL](https://hub.docker.com/repository/docker/ibpm/postgres) container.
 ```
-docker push ibpm/postgres:mercury-hgdb-3.0
+docker pull ibpm/postgres:mercury-hgdb-3.0
 ```
 - the [Apache ActiveMQ](https://hub.docker.com/repository/docker/ibpm/activemq) container.
 ```
-docker push ibpm/activemq:mercury-hgdb-3.0
+docker pull ibpm/activemq:mercury-hgdb-3.0
 ```
 - the [OpenLDAP](https://hub.docker.com/repository/docker/ibpm/openldap) container.
 ```
-docker push ibpm/openldap:mercury-hgdb-3.0
+docker pull ibpm/openldap:mercury-hgdb-3.0
 ```
 - the [Iron - POI Excel Serwer](https://hub.docker.com/repository/docker/ibpm/poi-server) container.
 ```
-docker push ibpm/poi-server:mercury-hgdb-3.0
+docker pull ibpm/poi-server:mercury-hgdb-3.0
 ```
 - the [Clustered Cache](https://hub.docker.com/repository/docker/ibpm/ehcache) container.
 ```
-docker push ibpm/ehcache:mercury-hgdb-3.0
+docker pull ibpm/ehcache:mercury-hgdb-3.0
 ```
 - the [IBPM Mercury (HgDB)](https://hub.docker.com/repository/docker/ibpm/mercury) container.
 ```
-docker push ibpm/mercury:mercury-hgdb-3.0.3.2.11
+docker pull ibpm/mercury:mercury-hgdb-3.0.3.2.11
 ```
 - the [IBPM Mercury (HgDB) LoadBalancer](https://hub.docker.com/repository/docker/ibpm/mercury-lb) container.
 ```
-docker push ibpm/mercury-lb:mercury-hgdb-3.0
+docker pull ibpm/mercury-lb:mercury-hgdb-3.0
 ```
 
 ## Run IBPM Mercury (HgDB) as Docker Compose
